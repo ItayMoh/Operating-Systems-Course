@@ -23,7 +23,6 @@ void* printB(void * msg){
         sem_wait(&threadB);
         printf("B\n");
         sem_post(&threadC);
-        sem_post(&threadA);
     }
 }
 
@@ -32,14 +31,16 @@ void* printC(void * msg){
         sem_wait(&threadC);
         printf("C\n");
         sem_post(&threadA);
+        sem_post(&threadA);
+
     }
 }
 
 int main(){
 
     //Three semaphores are initialized, one for each print required
-    sem_init(&threadA, 0, 1);
-    sem_init(&threadB, 0, 1);
+    sem_init(&threadA, 0, 2);
+    sem_init(&threadB, 0, 0);
     sem_init(&threadC, 0, 0);
 
     pthread_t  thread1, thread2, thread3;
